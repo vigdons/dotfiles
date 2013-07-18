@@ -162,7 +162,17 @@ shopt -s histappend
 
 # Make prompt informative
 # See:  http://www.ukuug.org/events/linux2003/papers/bash_tips/
-PS1="\[\033[0;32m\][\u@\h:\w]$\[\033[0m\]"
+
+function parse_git_dirty() {
+	[[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
+}
+
+function parse_git_branch() {
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ (\1$(parse_git_dirty))/"
+}
+
+#export PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n\$ \[$RESET\]"
+export PS1="\[\033[0;32m\][\u@\h:\w\]\033[0;31m\]$(parse_git_branch)\[\033[0m\]$ "
 
 ## -----------------------
 ## -- 2) Set up aliases --
@@ -225,3 +235,6 @@ fi
 
 ## Define any user-specific variables you want here.
 source ~/.bashrc_custom
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
