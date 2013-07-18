@@ -172,7 +172,7 @@ function parse_git_branch() {
 }
 
 #export PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n\$ \[$RESET\]"
-export PS1="\[\033[0;32m\][\u@\h:\w\]\033[0;31m\]$(parse_git_branch)\[\033[0m\]$ "
+export PS1="\[\033[0;32m\][\u@\h:\w\]]\033[0;31m\]$(parse_git_branch)\[\033[0m\]$ "
 
 ## -----------------------
 ## -- 2) Set up aliases --
